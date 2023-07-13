@@ -9,6 +9,22 @@ $(document).ready(function() {
 function setQuestion(index) {
   currentIndex = index;
   $("#question").html(_questions[index].text);
+  let responseHtml = '';
+  let resList = _questions[index].responses;
+  let rowCount = Math.ceil(resList.length/2);
+  $("#responseWrapper").css('grid-template-rows', ('auto ').repeat(rowCount));
+  for(let i = 0; i < resList.length; i++) {
+    responseHtml += `
+      <div class='response'>
+        <div class='responseText'>${resList[i].text}</div>
+        <div class='responseCount'>${resList[i].count}</div>
+      </div>
+    `;
+  }
+  $("#responseWrapper").html(responseHtml);
+  $(".response").click((e) => {
+    $(e.currentTarget).css('color', 'white');
+  });
 }
 
 function goNext() {
