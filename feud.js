@@ -3,6 +3,8 @@ var currentIndex = null;
 $(document).ready(function() {
   $("#prevBtn").click(goPrev);
   $("#nextBtn").click(goNext);
+  $('body').keyup(handleKey);
+  $("#errorWrapper").hide();
   setQuestion(0);
 });
 
@@ -35,4 +37,26 @@ function goNext() {
 function goPrev() {
   if(currentIndex > 0)
     setQuestion(currentIndex-1);
+}
+
+function handleKey(e) {
+  let key = e.originalEvent.key;
+  if(!["1", "2", "3"].includes(key))
+    return;
+  displayStrikes(parseInt(key));
+  setTimeout(hideStrikes, 3000);
+}
+
+function displayStrikes(n) {
+  let strikeHtml = `<div class='strike'>X</div>`;
+  let errorHtml = '';
+  for(let i = 0; i < n; i++)
+    errorHtml += strikeHtml;
+  $("#errorWrapper").html(errorHtml);
+  $("#errorWrapper").show();
+}
+
+function hideStrikes() {
+  $("#errorWrapper").html('');
+  $("#errorWrapper").hide();
 }
