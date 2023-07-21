@@ -54,6 +54,7 @@ function displayStrikes(n) {
     errorHtml += strikeHtml;
   $("#errorWrapper").html(errorHtml);
   $("#errorWrapper").show();
+  document.getElementById("buzzer").play();
 }
 
 function hideStrikes() {
